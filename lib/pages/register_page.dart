@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import '../services/media_service.dart';
 import '../services/database_service.dart';
 import '../services/cloud_storage_service.dart';
-import '../services/navigation_service.dart';
 
 //Widgets
 import '../widgets/custom_input_fields.dart';
@@ -19,6 +18,8 @@ import '../widgets/rounded_image.dart';
 import '../providers/authentication_provider.dart';
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _RegisterPageState();
@@ -32,7 +33,6 @@ class _RegisterPageState extends State<RegisterPage> {
   late AuthenticationProvider _auth;
   late DatabaseService _db;
   late CloudStorageService _cloudStorage;
-  late NavigationService _navigation;
 
   String? _email;
   String? _password;
@@ -46,7 +46,6 @@ class _RegisterPageState extends State<RegisterPage> {
     _auth = Provider.of<AuthenticationProvider>(context);
     _db = GetIt.instance.get<DatabaseService>();
     _cloudStorage = GetIt.instance.get<CloudStorageService>();
-    _navigation = GetIt.instance.get<NavigationService>();
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
     return _buildUI();
@@ -117,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _registerForm() {
-    return Container(
+    return SizedBox(
       height: _deviceHeight * 0.35,
       child: Form(
         key: _registerFormKey,

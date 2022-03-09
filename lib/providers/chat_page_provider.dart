@@ -1,10 +1,12 @@
+// ignore_for_file: recursive_getters
+
 import 'dart:async';
 
 //Packages
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 //Services
 import '../services/database_service.dart';
@@ -24,15 +26,13 @@ class ChatPageProvider extends ChangeNotifier {
   late MediaService _media;
   late NavigationService _navigation;
 
-  AuthenticationProvider _auth;
-  ScrollController _messagesListViewController;
+  final AuthenticationProvider _auth;
+  final ScrollController _messagesListViewController;
 
-  String _chatId;
+  final String _chatId;
   List<ChatMessage>? messages;
 
   late StreamSubscription _messagesStream;
-  late StreamSubscription _keyboardVisibilityStream;
-  late KeyboardVisibilityController _keyboardVisibilityController;
 
   String? _message;
 
@@ -40,7 +40,7 @@ class ChatPageProvider extends ChangeNotifier {
     return message;
   }
 
-  void set message(String _value) {
+  set message(String _value) {
     _message = _value;
   }
 
@@ -49,7 +49,6 @@ class ChatPageProvider extends ChangeNotifier {
     _storage = GetIt.instance.get<CloudStorageService>();
     _media = GetIt.instance.get<MediaService>();
     _navigation = GetIt.instance.get<NavigationService>();
-    _keyboardVisibilityController = KeyboardVisibilityController();
     listenToMessages();
     listenToKeyboardChanges();
   }
@@ -84,17 +83,16 @@ class ChatPageProvider extends ChangeNotifier {
         },
       );
     } catch (e) {
-      print("Error getting messages.");
-      print(e);
+      if (kDebugMode) {
+        print("Error getting messages.");
+      }
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   void listenToKeyboardChanges() {
-    _keyboardVisibilityStream = _keyboardVisibilityController.onChange.listen(
-          (_event) {
-        _db.updateChatData(_chatId, {"is_activity": _event});
-      },
-    );
   }
 
   void sendTextMessage() {
@@ -124,8 +122,12 @@ class ChatPageProvider extends ChangeNotifier {
         _db.addMessageToChat(_chatId, _messageToSend);
       }
     } catch (e) {
-      print("Error sending image message.");
-      print(e);
+      if (kDebugMode) {
+        print("Error sending image message.");
+      }
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

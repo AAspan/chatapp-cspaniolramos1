@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //Packages
-//port 'package:firebase_analytics/firebase_analytics.dart';
+//import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:provider/provider.dart';
 
 //Services
@@ -22,7 +22,7 @@ void main() {
       key: UniqueKey(),
       onInitializationComplete: () {
         runApp(
-          MainApp(),
+          const MainApp(),
         );
       },
     ),
@@ -30,6 +30,8 @@ void main() {
 }
 
 class MainApp extends StatelessWidget {
+  const MainApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -43,18 +45,18 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Chatapp',
         theme: ThemeData(
-          backgroundColor: Color.fromRGBO(36, 35, 49, 1.0),
-          scaffoldBackgroundColor: Color.fromRGBO(36, 35, 49, 1.0),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: const Color.fromRGBO(36, 35, 49, 1.0),
+          scaffoldBackgroundColor: const Color.fromRGBO(36, 35, 49, 1.0),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Color.fromRGBO(30, 29, 37, 1.0),
           ),
         ),
         navigatorKey: NavigationService.navigatorKey,
         initialRoute: '/login',
         routes: {
-          '/login': (BuildContext _context) => LoginPage(),
-          '/register': (BuildContext _context) => RegisterPage(),
-          '/home': (BuildContext _context) => HomePage(),
+          '/login': (BuildContext _context) => const LoginPage(),
+          '/register': (BuildContext _context) => const RegisterPage(),
+          '/home': (BuildContext _context) => const HomePage(),
         },
       ),
     );

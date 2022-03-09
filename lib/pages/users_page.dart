@@ -1,7 +1,6 @@
 //Packages
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:get_it/get_it.dart';
 
 //Providers
 import '../providers/authentication_provider.dart';
@@ -17,6 +16,8 @@ import '../widgets/rounded_button.dart';
 import '../models/chat_user.dart';
 
 class UsersPage extends StatefulWidget {
+  const UsersPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _UsersPageState();
@@ -65,7 +66,7 @@ class _UsersPageState extends State<UsersPage> {
               TopBar(
                 'Users',
                 primaryAction: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.logout,
                     color: Color.fromRGBO(0, 82, 218, 1.0),
                   ),
@@ -97,7 +98,7 @@ class _UsersPageState extends State<UsersPage> {
     List<ChatUser>? _users = _pageProvider.users;
     return Expanded(child: () {
       if (_users != null) {
-        if (_users.length != 0) {
+        if (_users.isNotEmpty) {
           return ListView.builder(
             itemCount: _users.length,
             itemBuilder: (BuildContext _context, int _index) {
@@ -119,7 +120,7 @@ class _UsersPageState extends State<UsersPage> {
             },
           );
         } else {
-          return Center(
+          return const Center(
             child: Text(
               "No Users Found.",
               style: TextStyle(
@@ -129,7 +130,7 @@ class _UsersPageState extends State<UsersPage> {
           );
         }
       } else {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(
             color: Colors.white,
           ),

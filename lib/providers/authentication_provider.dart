@@ -1,6 +1,6 @@
 //Packages
 import 'package:chatapp/models/chat_user.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
@@ -56,9 +56,13 @@ class AuthenticationProvider extends ChangeNotifier {
       await _auth.signInWithEmailAndPassword(
           email: _email, password: _password);
     } on FirebaseAuthException {
-      print("Error logging user into Firebase");
+      if (kDebugMode) {
+        print("Error logging user into Firebase");
+      }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -69,17 +73,24 @@ class AuthenticationProvider extends ChangeNotifier {
           email: _email, password: _password);
       return _credentials.user!.uid;
     } on FirebaseAuthException {
-      print("Error registering user.");
+      if (kDebugMode) {
+        print("Error registering user.");
+      }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
+    return null;
   }
 
   Future<void> logout() async {
     try {
       await _auth.signOut();
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

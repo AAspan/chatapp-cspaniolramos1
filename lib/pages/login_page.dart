@@ -14,6 +14,8 @@ import '../providers/authentication_provider.dart';
 import '../services/navigation_service.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _LoginPageState();
@@ -75,10 +77,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _pageTitle() {
-    return Container(
+    return SizedBox(
       height: _deviceHeight * 0.10,
-      child: Text(
-        'Chatify',
+      child: const Text(
+        'chatapp',
         style: TextStyle(
           color: Colors.white,
           fontSize: 40,
@@ -89,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _loginForm() {
-    return Container(
+    return SizedBox(
       height: _deviceHeight * 0.18,
       child: Form(
         key: _loginFormKey,
@@ -140,12 +142,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget _registerAccountLink() {
     return GestureDetector(
       onTap: () => _navigation.navigateToRoute('/register'),
-      child: Container(
-        child: Text(
-          'Don\'t have an account?',
-          style: TextStyle(
-            color: Colors.blueAccent,
-          ),
+      child: const Text(
+        'Don\'t have an account?',
+        style: TextStyle(
+          color: Colors.blueAccent,
         ),
       ),
     );

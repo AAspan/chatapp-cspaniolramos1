@@ -1,5 +1,8 @@
 //Packages
+// ignore_for_file: constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 //Models
 import '../models/chat_message.dart';
@@ -11,7 +14,7 @@ const String MESSAGES_COLLECTION = "messages";
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  DatabaseService() {}
+  DatabaseService();
 
   Future<void> createUser(
       String _uid, String _email, String _name, String _imageURL) async {
@@ -25,7 +28,9 @@ class DatabaseService {
         },
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -79,7 +84,9 @@ class DatabaseService {
         _message.toJson(),
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -88,7 +95,9 @@ class DatabaseService {
     try {
       await _db.collection(CHAT_COLLECTION).doc(_chatID).update(_data);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -100,7 +109,9 @@ class DatabaseService {
         },
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -108,7 +119,9 @@ class DatabaseService {
     try {
       await _db.collection(CHAT_COLLECTION).doc(_chatID).delete();
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -118,7 +131,10 @@ class DatabaseService {
       await _db.collection(CHAT_COLLECTION).add(_data);
       return _chat;
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
+    return null;
   }
 }

@@ -23,6 +23,8 @@ import '../models/chat_user.dart';
 import '../models/chat_message.dart';
 
 class ChatsPage extends StatefulWidget {
+  const ChatsPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _ChatsPageState();
@@ -72,7 +74,7 @@ class _ChatsPageState extends State<ChatsPage> {
               TopBar(
                 'Chats',
                 primaryAction: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.logout,
                     color: Color.fromRGBO(0, 82, 218, 1.0),
                   ),
@@ -94,7 +96,7 @@ class _ChatsPageState extends State<ChatsPage> {
     return Expanded(
       child: (() {
         if (_chats != null) {
-          if (_chats.length != 0) {
+          if (_chats.isNotEmpty) {
             return ListView.builder(
               itemCount: _chats.length,
               itemBuilder: (BuildContext _context, int _index) {
@@ -104,7 +106,7 @@ class _ChatsPageState extends State<ChatsPage> {
               },
             );
           } else {
-            return Center(
+            return const Center(
               child: Text(
                 "No Chats Found.",
                 style: TextStyle(color: Colors.white),
@@ -112,7 +114,7 @@ class _ChatsPageState extends State<ChatsPage> {
             );
           }
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
               color: Colors.white,
             ),

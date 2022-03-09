@@ -1,16 +1,19 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:io';
 
 //Packages
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 
 const String USER_COLLECTION = "Users";
 
 class CloudStorageService {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  CloudStorageService() {}
+  CloudStorageService();
 
   Future<String?> saveUserImageToStorage(
       String _uid, PlatformFile _file) async {
@@ -24,8 +27,11 @@ class CloudStorageService {
             (_result) => _result.ref.getDownloadURL(),
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
+    return null;
   }
 
   Future<String?> saveChatImageToStorage(
@@ -40,7 +46,10 @@ class CloudStorageService {
             (_result) => _result.ref.getDownloadURL(),
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
+    return null;
   }
 }

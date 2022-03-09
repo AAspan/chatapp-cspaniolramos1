@@ -6,6 +6,8 @@ import '../pages/chats_page.dart';
 import '../pages/users_page.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _HomePageState();
@@ -15,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentPage = 0;
   final List<Widget> _pages = [
-    ChatsPage(),
+    const ChatsPage(),
     UsersPage(),
   ];
 
@@ -34,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             _currentPage = _index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             label: "Chats",
             icon: Icon(

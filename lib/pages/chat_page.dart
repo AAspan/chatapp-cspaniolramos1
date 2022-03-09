@@ -18,7 +18,7 @@ import '../providers/chat_page_provider.dart';
 class ChatPage extends StatefulWidget {
   final Chat chat;
 
-  ChatPage({required this.chat});
+  const ChatPage({Key? key, required this.chat}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -52,7 +52,7 @@ class _ChatPageState extends State<ChatPage> {
       providers: [
         ChangeNotifierProvider<ChatPageProvider>(
           create: (_) => ChatPageProvider(
-              this.widget.chat.uid, _auth, _messagesListViewController),
+              widget.chat.uid, _auth, _messagesListViewController),
         ),
       ],
       child: _buildUI(),
@@ -78,10 +78,10 @@ class _ChatPageState extends State<ChatPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TopBar(
-                    this.widget.chat.title(),
+                    widget.chat.title(),
                     fontSize: 10,
                     primaryAction: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete,
                         color: Color.fromRGBO(0, 82, 218, 1.0),
                       ),
@@ -90,7 +90,7 @@ class _ChatPageState extends State<ChatPage> {
                       },
                     ),
                     secondaryAction: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: Color.fromRGBO(0, 82, 218, 1.0),
                       ),
@@ -112,8 +112,8 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _messagesListView() {
     if (_pageProvider.messages != null) {
-      if (_pageProvider.messages!.length != 0) {
-        return Container(
+      if (_pageProvider.messages!.isNotEmpty) {
+        return SizedBox(
           height: _deviceHeight * 0.74,
           child: ListView.builder(
             controller: _messagesListViewController,
@@ -121,25 +121,22 @@ class _ChatPageState extends State<ChatPage> {
             itemBuilder: (BuildContext _context, int _index) {
               ChatMessage _message = _pageProvider.messages![_index];
               bool _isOwnMessage = _message.senderID == _auth.user.uid;
-              return Container(
-                child: CustomChatListViewTile(
-                  deviceHeight: _deviceHeight,
-                  width: _deviceWidth * 0.80,
-                  message: _message,
-                  isOwnMessage: _isOwnMessage,
-                  sender: this
-                      .widget
-                      .chat
-                      .members
-                      .where((_m) => _m.uid == _message.senderID)
-                      .first,
-                ),
+              return CustomChatListViewTile(
+                deviceHeight: _deviceHeight,
+                width: _deviceWidth * 0.80,
+                message: _message,
+                isOwnMessage: _isOwnMessage,
+                sender: widget
+                    .chat
+                    .members
+                    .where((_m) => _m.uid == _message.senderID)
+                    .first,
               );
             },
           ),
         );
       } else {
-        return Align(
+        return const Align(
           alignment: Alignment.center,
           child: Text(
             "Be the first to say Hi!",
@@ -148,7 +145,7 @@ class _ChatPageState extends State<ChatPage> {
         );
       }
     } else {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(
           color: Colors.white,
         ),
@@ -160,7 +157,7 @@ class _ChatPageState extends State<ChatPage> {
     return Container(
       height: _deviceHeight * 0.06,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(30, 29, 37, 1.0),
+        color: const Color.fromRGBO(30, 29, 37, 1.0),
         borderRadius: BorderRadius.circular(100),
       ),
       margin: EdgeInsets.symmetric(
@@ -198,11 +195,11 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _sendMessageButton() {
     double _size = _deviceHeight * 0.04;
-    return Container(
+    return SizedBox(
       height: _size,
       width: _size,
       child: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.send,
           color: Colors.white,
         ),
@@ -219,11 +216,11 @@ class _ChatPageState extends State<ChatPage> {
 
   Widget _imageMessageButton() {
     double _size = _deviceHeight * 0.04;
-    return Container(
+    return SizedBox(
       height: _size,
       width: _size,
       child: FloatingActionButton(
-        backgroundColor: Color.fromRGBO(
+        backgroundColor: const Color.fromRGBO(
           0,
           82,
           218,
@@ -232,7 +229,7 @@ class _ChatPageState extends State<ChatPage> {
         onPressed: () {
           _pageProvider.sendImageMessage();
         },
-        child: Icon(Icons.camera_enhance),
+        child: const Icon(Icons.camera_enhance),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 //Packages
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -17,7 +17,7 @@ import '../models/chat_message.dart';
 import '../models/chat_user.dart';
 
 class ChatsPageProvider extends ChangeNotifier {
-  AuthenticationProvider _auth;
+  final AuthenticationProvider _auth;
 
   late DatabaseService _db;
 
@@ -81,8 +81,12 @@ class ChatsPageProvider extends ChangeNotifier {
             notifyListeners();
           });
     } catch (e) {
-      print("Error getting chats.");
-      print(e);
+      if (kDebugMode) {
+        print("Error getting chats.");
+      }
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }
